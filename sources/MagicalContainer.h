@@ -1,10 +1,16 @@
-#ifndef SYSTEMS2EX5A_MAGICALCONTAINER_H
-#define SYSTEMS2EX5A_MAGICALCONTAINER_H
+#ifndef MAGICALCONTAINER_HPP
+#define MAGICALCONTAINER_HPP
 
+#include <vector>
 
 class MagicalContainer {
+public:
+    void addElement(int element);
+    void removeElement(int element);
+    int getSize() const;
 
+private:
+    std::vector<int> elements;
 };
 
-
-#endif //SYSTEMS2EX5A_MAGICALCONTAINER_H
+#endif // MAGICALCONTAINER_HPP
