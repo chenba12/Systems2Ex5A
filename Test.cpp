@@ -28,7 +28,7 @@ TEST_CASE("Test adding a single element to MagicalContainer") {
     CHECK_FALSE((++ascIt != ascIt.end()));
 }
 
-TEST_CASE("Test adding multiple elements to MagicalContainer") {
+TEST_CASE("Test adding multiple primeContainer to MagicalContainer") {
     MagicalContainer container;
     container.addElement(10);
     container.addElement(20);
@@ -94,7 +94,7 @@ TEST_CASE("Test Copy constructor, assignment operator") {
 }
 
 
-TEST_CASE("Test AscendingIterator with multiple elements") {
+TEST_CASE("Test AscendingIterator with multiple primeContainer") {
     MagicalContainer container;
     container.addElement(10);
     container.addElement(5);
@@ -111,7 +111,7 @@ TEST_CASE("Test AscendingIterator with multiple elements") {
     CHECK_FALSE((++iterator != iterator.end()));
 }
 
-TEST_CASE("Test SideCrossIterator with multiple elements") {
+TEST_CASE("Test SideCrossIterator with multiple primeContainer") {
     MagicalContainer container;
     container.addElement(10);
     container.addElement(5);
@@ -128,7 +128,7 @@ TEST_CASE("Test SideCrossIterator with multiple elements") {
     CHECK_FALSE((++iterator != iterator.end()));
 }
 
-TEST_CASE("Test PrimeIterator with multiple elements") {
+TEST_CASE("Test PrimeIterator with multiple primeContainer") {
     MagicalContainer container;
     container.addElement(10);
     container.addElement(5);
@@ -148,7 +148,7 @@ TEST_CASE("Test PrimeIterator with multiple elements") {
     CHECK_FALSE((iterator != iterator.end()));
 }
 
-TEST_CASE("Test iterators with no elements in container") {
+TEST_CASE("Test iterators with no primeContainer in container") {
     MagicalContainer container;
 
     MagicalContainer::AscendingIterator ascIt(container);
@@ -232,7 +232,7 @@ TEST_CASE("Test comparison operators for SideCrossIterator") {
     CHECK_FALSE((it2 < it1));
 }
 
-TEST_CASE("Test AscendingIterator after adding new elements") {
+TEST_CASE("Test AscendingIterator after adding new primeContainer") {
     MagicalContainer container;
     container.addElement(1);
     container.addElement(2);
@@ -251,7 +251,7 @@ TEST_CASE("Test AscendingIterator after adding new elements") {
     CHECK_EQ(++it, it.end());
 }
 
-TEST_CASE("Test PrimeIterator after adding new elements") {
+TEST_CASE("Test PrimeIterator after adding new primeContainer") {
     MagicalContainer container;
     container.addElement(3);
     container.addElement(5);
@@ -270,7 +270,7 @@ TEST_CASE("Test PrimeIterator after adding new elements") {
     CHECK_EQ(++it, it.end());
 }
 
-TEST_CASE("Test SideCrossIterator after adding new elements") {
+TEST_CASE("Test SideCrossIterator after adding new primeContainer") {
     MagicalContainer container;
     container.addElement(1);
     container.addElement(2);
@@ -293,7 +293,7 @@ TEST_CASE("Test SideCrossIterator after adding new elements") {
     CHECK_EQ(++it, it.end());
 }
 
-TEST_CASE("Test AscendingIterator after removing elements") {
+TEST_CASE("Test AscendingIterator after removing primeContainer") {
     MagicalContainer container;
     container.addElement(1);
     container.addElement(2);
@@ -317,7 +317,7 @@ TEST_CASE("Test AscendingIterator after removing elements") {
     CHECK_EQ(++it, it.end());
 }
 
-TEST_CASE("Test PrimeIterator after removing elements") {
+TEST_CASE("Test PrimeIterator after removing primeContainer") {
     MagicalContainer container;
     container.addElement(2);
     container.addElement(3);
@@ -342,7 +342,7 @@ TEST_CASE("Test PrimeIterator after removing elements") {
 }
 
 
-TEST_CASE("Test SideCrossIterator after removing elements") {
+TEST_CASE("Test SideCrossIterator after removing primeContainer") {
     MagicalContainer container;
     container.addElement(1);
     container.addElement(2);
