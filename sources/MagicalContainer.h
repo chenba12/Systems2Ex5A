@@ -4,7 +4,6 @@
 #include <vector>
 #include <algorithm>
 #include <stdexcept>
-#include "BaseIterator.hpp"
 
 class MagicalContainer {
 private:
