@@ -54,6 +54,43 @@ TEST_CASE("Test removing a non-existing element from MagicalContainer") {
     CHECK_EQ(container.size(), 3);
 }
 
+TEST_CASE("Test interaction between operations") {
+    MagicalContainer container;
+    container.addElement(5);
+    container.addElement(7);
+    container.addElement(3);
+
+    MagicalContainer::PrimeIterator iterator(container);
+    CHECK_EQ(*iterator.begin(), 3);
+
+    container.addElement(2);
+    CHECK_EQ(*iterator.begin(), 2);
+
+    container.removeElement(2);
+    CHECK_EQ(*iterator.begin(), 3);
+}
+
+TEST_CASE("Test Copy constructor, assignment operator, and destructor") {
+    MagicalContainer container;
+    container.addElement(5);
+    container.addElement(7);
+    container.addElement(3);
+
+    MagicalContainer copyContainer(container);
+    CHECK_EQ(container.size(), copyContainer.size());
+    for (MagicalContainer::AscendingIterator it1(container), it2(copyContainer); it1 != it1.end(); ++it1, ++it2) {
+        CHECK_EQ(*it1, *it2);
+    }
+
+    MagicalContainer anotherContainer;
+    anotherContainer.addElement(9);
+    anotherContainer = container;
+    CHECK_EQ(container.size(), anotherContainer.size());
+    for (MagicalContainer::AscendingIterator it1(container), it2(anotherContainer); it1 != it1.end(); ++it1, ++it2) {
+        CHECK_EQ(*it1, *it2);
+    }
+}
+
 
 TEST_CASE("Test AscendingIterator with multiple elements") {
     MagicalContainer container;
@@ -193,7 +230,7 @@ TEST_CASE("Test comparison operators for SideCrossIterator") {
     CHECK_FALSE((it2 < it1));
 }
 
-TEST_CASE("Test iterator after adding new elements") {
+TEST_CASE("Test AscendingIterator after adding new elements") {
     MagicalContainer container;
     container.addElement(1);
     container.addElement(2);
@@ -203,10 +240,13 @@ TEST_CASE("Test iterator after adding new elements") {
     CHECK_FALSE((*it.begin() != 1));
     CHECK_EQ(*(++it), 2);
     CHECK_FALSE((*(++it) != 2));
+    CHECK_EQ(++it, it.end());
 
     container.addElement(0);
+    it = MagicalContainer::AscendingIterator(container); // refresh the iterator
     CHECK_EQ(*it.begin(), 0);
     CHECK_FALSE((*it.begin() != 0));
+    CHECK_EQ(++it, it.end());
 }
 
 TEST_CASE("Test PrimeIterator after adding new elements") {
@@ -219,10 +259,13 @@ TEST_CASE("Test PrimeIterator after adding new elements") {
     CHECK_FALSE((*it.begin() != 3));
     CHECK_EQ(*(++it), 5);
     CHECK_FALSE((*(++it) != 5));
+    CHECK_EQ(++it, it.end());
 
     container.addElement(2);
+    it = MagicalContainer::PrimeIterator(container); // refresh the iterator
     CHECK_EQ(*it.begin(), 2);
     CHECK_FALSE((*it.begin() != 2));
+    CHECK_EQ(++it, it.end());
 }
 
 TEST_CASE("Test SideCrossIterator after adding new elements") {
@@ -235,13 +278,20 @@ TEST_CASE("Test SideCrossIterator after adding new elements") {
     CHECK_FALSE((*it.begin() != 1));
     CHECK_EQ(*(++it), 2);
     CHECK_FALSE((*(++it) != 2));
+    CHECK_EQ(++it, it.end());
 
     container.addElement(3);
-    CHECK_EQ(*it.end(), 3);
-    CHECK_FALSE((*it.end() != 3));
+    it = MagicalContainer::SideCrossIterator(container); // refresh the iterator
+    CHECK_EQ(*it.begin(), 1);
+    CHECK_FALSE((*it.begin() != 1));
+    CHECK_EQ(*(++it), 3);
+    CHECK_FALSE((*(++it) != 3));
+    CHECK_EQ(*(++it), 2);
+    CHECK_FALSE((*(++it) != 2));
+    CHECK_EQ(++it, it.end());
 }
 
-TEST_CASE("Test iterator after removing elements") {
+TEST_CASE("Test AscendingIterator after removing elements") {
     MagicalContainer container;
     container.addElement(1);
     container.addElement(2);
@@ -250,10 +300,19 @@ TEST_CASE("Test iterator after removing elements") {
     MagicalContainer::AscendingIterator it(container);
     CHECK_EQ(*it.begin(), 1);
     CHECK_FALSE((*it.begin() != 1));
+    CHECK_EQ(*(++it), 2);
+    CHECK_FALSE((*(++it) != 2));
+    CHECK_EQ(*(++it), 3);
+    CHECK_FALSE((*(++it) != 3));
+    CHECK_EQ(++it, it.end());
 
     container.removeElement(1);
+    it = MagicalContainer::AscendingIterator(container); // refresh the iterator
     CHECK_EQ(*it.begin(), 2);
     CHECK_FALSE((*it.begin() != 2));
+    CHECK_EQ(*(++it), 3);
+    CHECK_FALSE((*(++it) != 3));
+    CHECK_EQ(++it, it.end());
 }
 
 TEST_CASE("Test PrimeIterator after removing elements") {
@@ -265,11 +324,21 @@ TEST_CASE("Test PrimeIterator after removing elements") {
     MagicalContainer::PrimeIterator it(container);
     CHECK_EQ(*it.begin(), 2);
     CHECK_FALSE((*it.begin() != 2));
+    CHECK_EQ(*(++it), 3);
+    CHECK_FALSE((*(++it) != 3));
+    CHECK_EQ(*(++it), 5);
+    CHECK_FALSE((*(++it) != 5));
+    CHECK_EQ(++it, it.end());
 
     container.removeElement(2);
+    it = MagicalContainer::PrimeIterator(container); // refresh the iterator
     CHECK_EQ(*it.begin(), 3);
     CHECK_FALSE((*it.begin() != 3));
+    CHECK_EQ(*(++it), 5);
+    CHECK_FALSE((*(++it) != 5));
+    CHECK_EQ(++it, it.end());
 }
+
 
 TEST_CASE("Test SideCrossIterator after removing elements") {
     MagicalContainer container;
@@ -280,8 +349,17 @@ TEST_CASE("Test SideCrossIterator after removing elements") {
     MagicalContainer::SideCrossIterator it(container);
     CHECK_EQ(*it.begin(), 1);
     CHECK_FALSE((*it.begin() != 1));
+    CHECK_EQ(*(++it), 3);
+    CHECK_FALSE((*(++it) != 3));
+    CHECK_EQ(*(++it), 2);
+    CHECK_FALSE((*(++it) != 2));
+    CHECK_EQ(++it, it.end());
 
     container.removeElement(1);
-    CHECK_EQ(*it.begin(), 2);
-    CHECK_EQ(*(++it), 3);
+    it = MagicalContainer::SideCrossIterator(container); // refresh the iterator
+    CHECK_EQ(*it.begin(), 3);
+    CHECK_FALSE((*it.begin() != 3));
+    CHECK_EQ(*(++it), 2);
+    CHECK_FALSE((*(++it) != 2));
+    CHECK_EQ(++it, it.end());
 }
