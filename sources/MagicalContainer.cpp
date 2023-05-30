@@ -1,5 +1,7 @@
 #include "MagicalContainer.h"
 
+using namespace ariel;
+
 void MagicalContainer::addElement(int element) {
     elements.push_back(element);
 }

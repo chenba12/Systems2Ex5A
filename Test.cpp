@@ -1,6 +1,8 @@
 #include "doctest.h"
 #include "sources/MagicalContainer.h"
 
+using namespace ariel;
+
 TEST_CASE("Test initial state of MagicalContainer") {
     MagicalContainer container;
     CHECK_EQ(container.size(), 0);
