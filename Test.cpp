@@ -70,7 +70,7 @@ TEST_CASE("Test interaction between operations") {
     CHECK_EQ(*iterator.begin(), 3);
 }
 
-TEST_CASE("Test Copy constructor, assignment operator, and destructor") {
+TEST_CASE("Test Copy constructor, assignment operator") {
     MagicalContainer container;
     container.addElement(5);
     container.addElement(7);
