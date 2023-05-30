@@ -365,3 +365,24 @@ TEST_CASE("Test SideCrossIterator after removing elements") {
     CHECK_FALSE((*(++it) != 2));
     CHECK_EQ(++it, it.end());
 }
+
+TEST_CASE("Test incrementing iterators past the end") {
+    MagicalContainer container;
+    container.addElement(5);
+    container.addElement(2);
+    container.addElement(3);
+
+    MagicalContainer::SideCrossIterator itSide(container);
+    MagicalContainer::AscendingIterator itAsc(container);
+    MagicalContainer::PrimeIterator itPrime(container);
+
+    for (auto i = itSide.begin(); i < itSide.end(); ++i) {
+    }
+    for (auto i = itAsc.begin(); i < itAsc.end(); ++i) {
+    }
+    for (auto i = itPrime.begin(); i < itPrime.end(); ++i) {
+    }
+    CHECK_THROWS(++itSide);
+    CHECK_THROWS(++itAsc);
+    CHECK_THROWS(++itPrime);
+}
