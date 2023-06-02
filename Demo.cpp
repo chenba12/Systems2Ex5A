@@ -1,8 +1,9 @@
 #include <iostream>
-#include "sources/MagicalContainer.h"
+#include "sources/MagicalContainer.hpp"
+
 using namespace ariel;
 int main() {
-    // Create a MagicalContainer and add some primeContainer
+    // Create a MagicalContainer and add some elements
     MagicalContainer container;
     container.addElement(17);
     container.addElement(2);
@@ -13,7 +14,7 @@ int main() {
     // Print container size
     std::cout << "Size of container: " << container.size() << std::endl;
 
-    // Use AscendingIterator to display primeContainer in ascending order
+    // Use AscendingIterator to display elements in ascending order
     std::cout << "Elements in ascending order:\n";
     MagicalContainer::AscendingIterator ascIter(container);
     for (auto it = ascIter.begin(); it != ascIter.end(); ++it) {
@@ -21,7 +22,7 @@ int main() {
     }
     std::cout << std::endl;
 
-    // Use DescendingIterator to display primeContainer in descending order
+    // Use DescendingIterator to display elements in descending order
     std::cout << "Elements in cross order:\n";
     MagicalContainer::SideCrossIterator crossIter(container);
     for (auto it = crossIter.begin(); it != crossIter.end(); ++it) {

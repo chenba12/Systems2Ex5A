@@ -3,4 +3,4 @@ project(Systems2Ex5A)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Systems2Ex5A sources/MagicalContainer.h sources/MagicalContainer.cpp Demo.cpp Test.cpp)
+add_executable(Systems2Ex5A sources/MagicalContainer.hpp sources/MagicalContainer.cpp Demo.cpp Test.cpp)
